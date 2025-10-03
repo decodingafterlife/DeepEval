@@ -1,0 +1,36 @@
+--- Final Evaluation Report ---
+Mode: Deep Eval
+-----------------------------------
+answer_relevancy       | Score: 0.65  | [Needs Improvement]
+faithfulness           | Score: 0.64  | [Needs Improvement]
+contextual_precision   | Score: 0.83  | [Good]
+contextual_recall      | Score: 0.60  | [Needs Improvement]
+contextual_relevancy   | Score: 0.35  | [Failure]
+-----------------------------------
+
+--- Improvement Summary ---
+Based on the evaluation results, several patterns of failure emerge that can be addressed through specific actionable suggestions for improvement. Here are some key findings:
+
+1. **Inconsistent or irrelevant information**: In multiple metrics (answer_relevancy, faithfulness, contextual_relevancy), inputs contain irrelevant statements or information that limits the answer's usefulness.
+	* Solution: Ensure that all input sentences are relevant to the question or topic at hand. Remove any unnecessary or unrelated information that may confuse or mislead users.
+
+2. **Lack of coherence**: In some cases, the input contains contradictory or inconsistent information (e.g., faithfulness metric).
+	* Solution: Verify that all input statements are coherent and consistent within themselves. If a contradiction is present, rephrase or revise the input to ensure accuracy.
+
+3. **Inadequate retrieval context understanding**: The model struggles to accurately retrieve relevant information from the retrieval context in some metrics (contextual_recall, contextual_relevancy).
+	* Solution: Improve the model's ability to understand and connect relevant information within the retrieval context. This can be achieved through better natural language processing (NLP) capabilities, such as part-of-speech tagging, named entity recognition, and dependency parsing.
+
+4. **Insufficient focus on key aspects**: In some cases, the input focuses too much on secondary or unrelated topics, while neglecting the core issue.
+	* Solution: Ensure that the input is tailored to address the specific question or topic at hand. Identify the most relevant information and prioritize it in the output.
+
+5. **Misleading or unclear prompts**: The input prompt for the faithfulness metric contains a contradictory statement about Einstein's Nobel Prize year.
+	* Solution: Review and refine all input prompts to ensure they are clear, concise, and free from contradictions or ambiguities that may confuse the model.
+
+To address these patterns of failure, consider implementing the following improvements:
+
+1. **Input validation**: Integrate input validation mechanisms to detect and remove irrelevant information before processing.
+2. **Improved NLP capabilities**: Invest in enhancing the model's NLP abilities to better understand the retrieval context and connect relevant information.
+3. **Revised evaluation metrics**: Consider revising evaluation metrics to focus on more specific and accurate criteria, such as precision, recall, and F1-score.
+4. **Model fine-tuning**: Fine-tune the model using a mix of labeled and unlabeled data to improve its performance on various tasks and domains.
+
+By addressing these areas, you can enhance the overall performance and accuracy of your AI evaluation model.

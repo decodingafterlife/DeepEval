@@ -1,0 +1,32 @@
+[
+    {
+        "input": "In the event of a Cyber Incident under Section 14 of the Private Car Long Term Package Policy, coverage is provided against malicious acts or malware on Insured's personal devices during the Policy Period. This coverage includes protection against unauthorized access, data theft, and other cyber-related losses. The policy provides a limited amount of coverage for expenses incurred in responding to and remedying the incident, as well as any resulting losses.",
+        "score": 0.6666666666666666,
+        "reason": "The score is 0.67 because the retrieval context states Einstein won the Nobel Prize in 1968 but the actual output claims it is 1969, posing a contradiction to the retrieval context."
+    },
+    {
+        "input": "Riders and add-ons tied to the base policy comply with disclosure requirements as stated in the prospectus by mentioning the nature of benefits flowing thereupon in the prospectus of the base policy.",
+        "score": 0.5,
+        "reason": "The score is 0.50 because the actual output states that riders and add-ons are not compliant, which contradicts the claim."
+    },
+    {
+        "input": "Is SBI General Insurance Company Limited authorized to sell insurance policies by IRDAI?",
+        "score": 0.6666666666666666,
+        "reason": "The score is 0.67 because the actual output incorrectly states SBI General Insurance Company Limited as an IRDAI Reg No entity, contradicting its registered status."
+    },
+    {
+        "input": "Investigate the role of hybrid electric vehicles in expanding rural India\u2019s access to healthcare services and markets, exploring how this can positively impact economic growth and development in these regions.",
+        "score": 0.5,
+        "reason": "The faithfulness score is 0.50 because the actual output contains contradictions about the role of hybrid electric vehicles in expanding rural India's access to healthcare services and markets, or its potential impact on economic growth and development."
+    },
+    {
+        "input": "How robust data protection protocols can mitigate potential losses for Insured's personal devices from AI-powered security software in safeguarding against cyber threats, considering the definition of Cyber Incident (section 6) and Data (section 11), is that implementing encryption, secure update mechanisms, and regular backups with secure storage, will enhance overall security measures, thereby reducing potential data breaches.",
+        "score": 0.5,
+        "reason": "The score is 0.50 because the actual output contradicts the retrieval context regarding mitigation of losses for Insured's personal devices from AI-powered security software in safeguarding against cyber threats."
+    },
+    {
+        "input": "Explain how the combined financial impact of damage exceeds 75% of the vehicle's insured value in a Constructive Total Loss situation.",
+        "score": 1.0,
+        "reason": "The score is 1.00 because there are no contradictions to describe."
+    }
+]

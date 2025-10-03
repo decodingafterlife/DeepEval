@@ -1,0 +1,12 @@
+[
+    {
+        "input": "How does the definition of an Electric Vehicle compare to that of a Hybrid Electric Vehicle in terms of propulsion and power generation?",
+        "score": 0.9166666666666666,
+        "reason": "The score is 0.92 because 'no' verdicts for nodes 3 are ranked lower than 'yes' verdicts due to the explicit mention of 'fuel cells', which is not applicable to Electric Vehicles, indicating that the definition of a Hybrid Electric Vehicle includes a source of propulsion not present in an Electric Vehicle."
+    },
+    {
+        "input": "Delve into the definition of &quot;Cover&quot; as specified in clause 10 of the policy to understand the scope of the insurance contract.",
+        "score": 0.8333333333333333,
+        "reason": "The score is 0.83 because 'cover' is relevant to the input, but its definition within the policy (Retrieval Contexts[1].node) and 'Cover note' as one of the specified forms (Retrieval Contexts[2].node) are ranked lower than irrelevant nodes."
+    }
+]
