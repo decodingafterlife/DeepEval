@@ -154,4 +154,3 @@ The script will then prompt you to choose between a "Quick" or "Deep" evaluation
       * `deepeval.metrics`: To import and use the specific metric class (e.g., `FaithfulnessMetric`).
   * **Key Functions**:
       * `run_evaluation()`: The main logic that loads the data, loops through each test case, calls `metric.measure()`, and saves the results. At the end, it prints the crucial "Average Score" to the console, which is captured by `run_evaluation.py`.
-  * **Each Individual metric can also be called if we don't want all the metrics to be called. Just pass the required parameters when the file is being executed. Go through the file onec, you' understand.**
