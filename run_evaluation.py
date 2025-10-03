@@ -1,46 +1,20 @@
 # run_evaluation.py
 
 import os
-import subprocess
 import json
 import sys
 import datetime
-from concurrent.futures import ProcessPoolExecutor
 from custom_models import CustomOllamaLLM
 import config
 import rag_agent
-
-def run_metric_evaluation(metric_name, eval_type, goldens_file):
-    # ... (This helper function is unchanged)
-    print(f"---> Starting evaluation for: {metric_name}")
-    report_file = f"{metric_name}_{eval_type}_report.json"
-    command = [sys.executable, "evaluate_metric.py", metric_name, goldens_file, report_file]
-    try:
-        result = subprocess.run(command, capture_output=True, text=True, check=True, encoding='utf-8')
-        output_lines = result.stdout.strip().split('\n')
-        score_line = [line for line in output_lines if "Average Score:" in line]
-        if score_line:
-            avg_score = float(score_line[0].split(':')[-1].strip())
-            print(f"<--- Finished evaluation for: {metric_name} (Score: {avg_score:.2f})")
-            return metric_name, avg_score
-        else:
-            print(f"<--- Finished evaluation for: {metric_name} (Error: Could not parse score)")
-            return metric_name, None
-    except subprocess.CalledProcessError as e:
-        print(f"\n[Error] Subprocess for '{metric_name}' failed.")
-        print("--- Subprocess Error Output (stderr) ---")
-        print(e.stderr)
-        print("----------------------------------------")
-        return metric_name, None
+from evaluate_metric import run_evaluation
 
 def get_rating(score):
-    # ... (This function is unchanged)
     if score is None: return "[Error]"
     if score >= config.PASS_THRESHOLD: return "[Good]"
     elif score >= config.IMPROVEMENT_THRESHOLD: return "[Needs Improvement]"
     else: return "[Failure]"
 
-# MODIFIED: This function now returns the summary text
 def summarize_failures(results):
     print("\n--- Generating Improvement Suggestions ---")
     failures = []
@@ -71,24 +45,25 @@ def summarize_failures(results):
     summarizer_llm = CustomOllamaLLM(model=config.DEEPEVAL_GENERATION_MODEL)
     summary = summarizer_llm.generate(prompt)
     
-    # Return the summary instead of just printing it
     return summary
 
-
-def main():
-    # ... (User choice, golden generation, and RAG agent logic is unchanged)
-    choice = ""
-    while choice not in ['1', '2']:
-        choice = input("Select evaluation type:\n1. Quick Eval\n2. Deep Eval\nEnter choice (1 or 2): ")
-    if choice == '1':
-        eval_type, goldens_file, synthesizer_script, goldens_with_output_file = ("quick", config.QUICK_GOLDENS_FILE, "synthesizer_quick.py", config.QUICK_GOLDENS_WITH_OUTPUT_FILE)
+def run_evaluation_main(eval_type):
+    if eval_type == 'quick':
+        goldens_file, synthesizer_script, goldens_with_output_file = (config.QUICK_GOLDENS_FILE, "synthesizer_quick.py", config.QUICK_GOLDENS_WITH_OUTPUT_FILE)
     else:
-        eval_type, goldens_file, synthesizer_script, goldens_with_output_file = ("deep", config.DEEP_GOLDENS_FILE, "synthesizer_deep.py", config.DEEP_GOLDENS_WITH_OUTPUT_FILE)
+        goldens_file, synthesizer_script, goldens_with_output_file = (config.DEEP_GOLDENS_FILE, "synthesizer_deep.py", config.DEEP_GOLDENS_WITH_OUTPUT_FILE)
+    
     if not os.path.exists(goldens_file):
         print(f"'{goldens_file}' not found. Running synthesizer...")
-        subprocess.run([sys.executable, synthesizer_script], check=True, encoding='utf-8')
+        if eval_type == 'quick':
+            from synthesizer_quick import generate_quick_goldens
+            generate_quick_goldens()
+        else:
+            from synthesizer_deep import generate_deep_goldens
+            generate_deep_goldens()
     else:
         print(f"Found existing '{goldens_file}'. Skipping generation.")
+    
     if not os.path.exists(goldens_with_output_file):
         print(f"'{goldens_with_output_file}' not found. Running RAG agent...")
         rag_agent.generate_rag_responses(goldens_file, goldens_with_output_file)
@@ -96,15 +71,16 @@ def main():
         print(f"Found existing '{goldens_with_output_file}'. Skipping RAG agent execution.")
 
     all_results = {"eval_type": eval_type}
-    print("\n--- Starting Parallel Metric Evaluations ---")
-    with ProcessPoolExecutor() as executor:
-        futures = [executor.submit(run_metric_evaluation, metric, eval_type, goldens_with_output_file) for metric in config.METRICS_TO_RUN]
-        for future in futures:
-            metric_name, avg_score = future.result()
-            if metric_name:
-                all_results[metric_name] = {"score": avg_score, "rating": get_rating(avg_score)}
+    print("\n--- Starting Metric Evaluations ---")
+    for metric in config.METRICS_TO_RUN:
+        report_file = f"{metric}_{eval_type}_report.json"
+        run_evaluation(metric, goldens_with_output_file, report_file)
+        with open(report_file, 'r') as f:
+            results = json.load(f)
+        total_score = sum(item['score'] for item in results if item['score'] is not None)
+        average_score = total_score / len(results) if results else 0
+        all_results[metric] = {"score": average_score, "rating": get_rating(average_score)}
 
-    # NEW: Build the report as a list of strings
     report_content = []
     report_content.append("--- Final Evaluation Report ---")
     report_content.append(f"Mode: {eval_type.title()} Eval")
@@ -115,25 +91,27 @@ def main():
         report_content.append(f"{metric:<22} | Score: {score_str:<5} | {data['rating']}")
     report_content.append("-" * 35)
 
-    # Get the AI-powered summary
     summary = summarize_failures(all_results)
     report_content.append("\n--- Improvement Summary ---")
     report_content.append(summary)
 
-    # Combine the report into a single string
     final_report_str = "\n".join(report_content)
 
-    # Print the final report to the console
     print("\n\n" + final_report_str)
 
-    # Save the final report to a timestamped text file
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     report_filename = f"evaluation_report_{eval_type}_{timestamp}.txt"
     with open(report_filename, 'w', encoding='utf-8') as f:
         f.write(final_report_str)
     
     print(f"\n[+] Full report saved to '{report_filename}'")
-
+    return final_report_str, report_filename
 
 if __name__ == "__main__":
-    main()
+    choice = ""
+    while choice not in ['1', '2']:
+        choice = input("Select evaluation type:\n1. Quick Eval\n2. Deep Eval\nEnter choice (1 or 2): ")
+    if choice == '1':
+        run_evaluation_main('quick')
+    else:
+        run_evaluation_main('deep')

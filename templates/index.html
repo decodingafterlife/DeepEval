@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Evaluation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { padding: 2rem; }
+        #results, #status { margin-top: 2rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">RAG Evaluation Dashboard</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <button id="quick-eval-btn" class="btn btn-primary">Run Quick Evaluation</button>
+                <button id="deep-eval-btn" class="btn btn-secondary">Run Deep Evaluation</button>
+            </div>
+        </div>
+        <div id="status" class="mt-4"></div>
+        <div id="results" class="mt-4"></div>
+    </div>
+
+    <script>
+        const quickEvalBtn = document.getElementById('quick-eval-btn');
+        const deepEvalBtn = document.getElementById('deep-eval-btn');
+        const statusDiv = document.getElementById('status');
+        const resultsDiv = document.getElementById('results');
+
+        let intervalId;
+
+        quickEvalBtn.addEventListener('click', () => startEvaluation('quick'));
+        deepEvalBtn.addEventListener('click', () => startEvaluation('deep'));
+
+        function startEvaluation(evalType) {
+            quickEvalBtn.disabled = true;
+            deepEvalBtn.disabled = true;
+            statusDiv.innerHTML = `<p>Starting ${evalType} evaluation...</p>`;
+            resultsDiv.innerHTML = '';
+
+            fetch(`/api/run-evaluation/${evalType}`, { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    const taskId = data.task_id;
+                    intervalId = setInterval(() => checkStatus(taskId), 2000);
+                })
+                .catch(error => {
+                    statusDiv.innerHTML = `<p class="text-danger">Error starting evaluation: ${error}</p>`;
+                    quickEvalBtn.disabled = false;
+                    deepEvalBtn.disabled = false;
+                });
+        }
+
+        function checkStatus(taskId) {
+            fetch(`/api/status/${taskId}`)
+                .then(response => response.json())
+                .then(data => {
+                    statusDiv.innerHTML = `<p>Status: ${data.status}</p>`;
+                    if (data.status === 'completed') {
+                        clearInterval(intervalId);
+                        displayResults(data.result);
+                        quickEvalBtn.disabled = false;
+                        deepEvalBtn.disabled = false;
+                    } else if (data.status === 'failed') {
+                        clearInterval(intervalId);
+                        statusDiv.innerHTML += `<p class="text-danger">Error: ${data.error}</p>`;
+                        quickEvalBtn.disabled = false;
+                        deepEvalBtn.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    statusDiv.innerHTML = `<p class="text-danger">Error checking status: ${error}</p>`;
+                    clearInterval(intervalId);
+                    quickEvalBtn.disabled = false;
+                    deepEvalBtn.disabled = false;
+                });
+        }
+
+        function displayResults(results) {
+            let html = '<h3>Evaluation Report</h3>';
+            if (results.report_content) {
+                html += `<pre>${results.report_content}</pre>`;
+            }
+            resultsDiv.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

@@ -1,12 +1,12 @@
 [
     {
-        "input": "How does the definition of an Electric Vehicle compare to that of a Hybrid Electric Vehicle in terms of propulsion and power generation?",
-        "score": null,
-        "reason": "Unterminated string starting at: line 254 column 9 (char 188379)"
+        "input": "What is the definition of Constructive Total Loss (CTL) under the SBI General Insurance Company Limited Private Car Long Term Package Policy?",
+        "score": 0.5,
+        "reason": "The score is 0.50 because the expected output does not contain specific terms from the retrieval context, indicating a lack of clear attribution to node(s) in retrieval context."
     },
     {
-        "input": "Delve into the definition of &quot;Cover&quot; as specified in clause 10 of the policy to understand the scope of the insurance contract.",
-        "score": 0.5454545454545454,
-        "reason": "The score is 0.55 because the sentence 'An insurance contract, whether in the form of a policy document or a cover note or a Certificate of Insurance or any other form as may be specified to evidence the existence of an insurance contract.' (1st node in the retrieval context) is partially supported by one of the nodes in the retrieval context, but is largely unrelated to other relevant information."
+        "input": "The term 'Complainant' refers to an individual who has filed a complaint or grievance against an insurer and/or distribution channel, including policyholders, prospects, nominees, assignees, beneficiaries, and other relevant parties.",
+        "score": 0.6666666666666666,
+        "reason": "The score is 0.67 because the majority of sentences in the expected output are related to the concept of 'Complainant' (2nd node), which may indicate a strong connection between the retrieval context and the original text, but some sentences lack clear attribution (1st and 3rd nodes) leading to a moderate contextual recall score."
     }
 ]

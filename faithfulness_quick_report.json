@@ -1,12 +1,12 @@
 [
     {
-        "input": "How does the definition of an Electric Vehicle compare to that of a Hybrid Electric Vehicle in terms of propulsion and power generation?",
-        "score": 0.6,
-        "reason": "The score is 0.60 because the actual output contains two contradictions: one claim about Barack Obama being incorrect and another claim that Einstein won the Nobel Prize in 1969, which contradicts the retrieval context stating it as 1968."
+        "input": "What is the definition of Constructive Total Loss (CTL) under the SBI General Insurance Company Limited Private Car Long Term Package Policy?",
+        "score": 0.5714285714285714,
+        "reason": "The score is 0.57 because the actual output contains contradictory information about SBI General Insurance's customer care email address (customer.care@sbigeneral.in) and tollfree number (18001021111), reducing its faithfulness to the retrieval context."
     },
     {
-        "input": "Delve into the definition of &quot;Cover&quot; as specified in clause 10 of the policy to understand the scope of the insurance contract.",
-        "score": 0.6,
-        "reason": "The score is 0.60 because the actual output contains contradictions regarding Einstein's nationality (German scientist vs. German chef) and the year he won the Nobel Prize (1968 instead of 1969), while the claim about Zurich being a city in London does not pose a contradiction to the retrieval context."
+        "input": "The term 'Complainant' refers to an individual who has filed a complaint or grievance against an insurer and/or distribution channel, including policyholders, prospects, nominees, assignees, beneficiaries, and other relevant parties.",
+        "score": 0.8,
+        "reason": "The score is 0.80 because there are no contradictions in the actual output."
     }
 ]

@@ -1,12 +1,12 @@
 [
     {
-        "input": "How does the definition of an Electric Vehicle compare to that of a Hybrid Electric Vehicle in terms of propulsion and power generation?",
-        "score": 0.3333333333333333,
-        "reason": "The score is 0.33 because most statements about 'Material Information' and riders in insurance policies are irrelevant to the comparison between Electric Vehicle and Hybrid Electric Vehicle, with only one statement directly referencing Electric Vehicles (Statement 5: Battery Electric Vehicle derive all power from battery packs and thus have no internal combustion engine/fuel tank.)"
+        "input": "What is the definition of Constructive Total Loss (CTL) under the SBI General Insurance Company Limited Private Car Long Term Package Policy?",
+        "score": 0.5384615384615384,
+        "reason": "The score is 0.54 because the retrieval context contained information on malware definitions (Malware means any unauthorised or illegal Software or code...) and policy conditions (Whereas the Insured ..., Carry Forward means ..., Competent Authority means ...), which are not relevant to the definition of Constructive Total Loss (CTL)."
     },
     {
-        "input": "Delve into the definition of &quot;Cover&quot; as specified in clause 10 of the policy to understand the scope of the insurance contract.",
-        "score": 0.4666666666666667,
-        "reason": "The score is 0.47 because most retrieval contexts (e.g. 'any other form as may be specified to evidence the existence of an insurance contract', 'Electric Vehicle', 'shall', 'regulations', etc.) are irrelevant, while only specific definitions and clause-related statements (e.g. 'Cover means an insurance contract...') directly support understanding the scope of the insurance contract."
+        "input": "The term 'Complainant' refers to an individual who has filed a complaint or grievance against an insurer and/or distribution channel, including policyholders, prospects, nominees, assignees, beneficiaries, and other relevant parties.",
+        "score": 0.45,
+        "reason": "The score is 0.45 because most retrieval contexts contain irrelevant statements about 'Complainant' such as 'Policy', 'Malware', and 'Lost or Stolen', which quote data like 'Material Information' specifically refers to information explicitly sought by an insurer, and 'Carry Forward means the limit that has been made available from the expired Policy of the Insured with the Company.' (Statement 5), which shows a clear deviation from the definition of Complainant."
     }
 ]

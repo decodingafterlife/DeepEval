@@ -1,12 +1,12 @@
 [
     {
-        "input": "How does the definition of an Electric Vehicle compare to that of a Hybrid Electric Vehicle in terms of propulsion and power generation?",
+        "input": "What is the definition of Constructive Total Loss (CTL) under the SBI General Insurance Company Limited Private Car Long Term Package Policy?",
         "score": 0.9166666666666666,
-        "reason": "The score is 0.92 because 'no' verdicts for nodes 3 are ranked lower than 'yes' verdicts due to the explicit mention of 'fuel cells', which is not applicable to Electric Vehicles, indicating that the definition of a Hybrid Electric Vehicle includes a source of propulsion not present in an Electric Vehicle."
+        "reason": "The score is 0.92 because 'no' verdicts are ranked lower than 'yes' verdicts, as the node 'There was a cat' (Retrieval Context Ranking 4) is deemed irrelevant to the definition of Constructive Total Loss under the Policy, while relevant nodes such as 'Private Car Long Term Package Policy' and its policy wording clearly outline the conditions for Constructive Total Loss (Rankings 2 and 1 respectively)."
     },
     {
-        "input": "Delve into the definition of &quot;Cover&quot; as specified in clause 10 of the policy to understand the scope of the insurance contract.",
+        "input": "The term 'Complainant' refers to an individual who has filed a complaint or grievance against an insurer and/or distribution channel, including policyholders, prospects, nominees, assignees, beneficiaries, and other relevant parties.",
         "score": 0.8333333333333333,
-        "reason": "The score is 0.83 because 'cover' is relevant to the input, but its definition within the policy (Retrieval Contexts[1].node) and 'Cover note' as one of the specified forms (Retrieval Contexts[2].node) are ranked lower than irrelevant nodes."
+        "reason": "The score is 0.83 because while 'Complainant' has relevant definitions, the context of its application seems limited to policyholders and prospects (Rank 2 & 4), ranking it lower than more comprehensive definitions (Rank 1 & 3)."
     }
 ]

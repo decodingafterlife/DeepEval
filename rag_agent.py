@@ -1,3 +1,4 @@
+
 # rag_agent.py
 
 import json
@@ -31,7 +32,7 @@ def create_rag_chain():
     
     document_chain = create_stuff_documents_chain(llm, prompt)
     retrieval_chain = create_retrieval_chain(retriever, document_chain)
-    print("✅ RAG Agent built successfully.")
+    print("[+] RAG Agent built successfully.")
     return retrieval_chain
 
 def generate_rag_responses(input_goldens_path, output_goldens_path):
@@ -63,4 +64,10 @@ def generate_rag_responses(input_goldens_path, output_goldens_path):
     with open(output_goldens_path, 'w') as f:
         json.dump(goldens_data, f, indent=4)
     
-    print(f"✅ RAG agent responses saved to '{output_goldens_path}'.")
+    print(f"[+] RAG agent responses saved to '{output_goldens_path}'.")
+
+if __name__ == "__main__":
+    # This is an example of how to run this script directly
+    # You would need to provide the correct paths
+    # generate_rag_responses("goldens_quick.json", "goldens_quick_with_output.json")
+    pass

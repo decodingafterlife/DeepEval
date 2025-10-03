@@ -53,7 +53,6 @@ def run_evaluation(metric_name, goldens_file, report_file):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    # ... (argparse code is unchanged)
     parser.add_argument("metric_name", type=str, help="The name of the metric to run.")
     parser.add_argument("goldens_file", type=str, help="Path to the goldens JSON file.")
     parser.add_argument("report_file", type=str, help="Path to save the output report.")
