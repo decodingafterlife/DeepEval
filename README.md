@@ -113,7 +113,7 @@ The script will then prompt you to choose between a "Quick" or "Deep" evaluation
   * **What it Calls/Uses**: Nothing. It only contains variable definitions.
 
 ### `custom_models.py`
-*This is the corrected version of custom_models.py from the main repository. Next time please test and commit. T_T*
+*This is the corrected version of custom_models.py from the main repository.*
   * **Purpose**: Defines the custom wrapper classes that allow `deepeval` to interface with local models. This file makes the entire local-first approach possible.
   * **How it's Called**: Imported by `synthesizer_quick.py`, `synthesizer_deep.py`, `evaluate_metric.py`, and `run_evaluation.py`.
   * **What it Calls/Uses**:
